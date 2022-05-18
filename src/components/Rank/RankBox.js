@@ -3,12 +3,6 @@ import styled from "styled-components";
 
 import RankDetailBox from "./RankDetailBox";
 
-const RankContainer = styled.div`
-  background-color: white;
-  border: 1px solid #e6e6e6;
-  margin: 5px;
-`;
-
 const RankDetail = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -37,7 +31,7 @@ function RankBox(props) {
   const RankInfo = props.data;
 
   return (
-    <RankContainer>
+    <div className="Box">
       <div style={{ padding: "5px 40px" }}>
         <div>티어</div>
         <span>
@@ -62,7 +56,7 @@ function RankBox(props) {
         />
         <RankDetailBox type="평균 등수" data="" />
       </RankDetail>
-    </RankContainer>
+    </div>
   );
 }
 

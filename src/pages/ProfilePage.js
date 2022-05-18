@@ -16,7 +16,7 @@ function ProfilePage() {
   const [UserInfo] = useState(state[0]);
   const [RankInfo] = useState(state[1]);
   const [SFInfo] = useState(state[2]);
-  const [Synergy] = useState(state[3][0]);
+  const [Synergy] = useState(state[3]);
   console.log(Synergy);
 
   return (
@@ -25,23 +25,9 @@ function ProfilePage() {
       <hr />
       <Container>
         <RankBox data={RankInfo} />
-        <div
-          className="lpChart"
-          style={{
-            backgroundColor: "white",
-            border: "1px solid #e6e6e6",
-            margin: "5px",
-          }}
-        ></div>
+        <div className="lpChart Box"></div>
         <div className="sfBox">
-          <div
-            style={{
-              backgroundColor: "white",
-              border: "1px solid #e6e6e6",
-              margin: "5px",
-              textAlign: "center",
-            }}
-          >
+          <div style={{ textAlign: "center" }} className="Box">
             초고속 모드
             <br />
             <div>
@@ -51,13 +37,7 @@ function ProfilePage() {
             </div>
           </div>
         </div>
-        <div
-          style={{
-            backgroundColor: "white",
-            border: "1px solid #e6e6e6",
-            margin: "5px",
-          }}
-        >
+        <div className="Box">
           사용한 시너지:
           {Synergy.map((data) => (
             <div key={data.synergy_name}>{data.synergy_name}</div>
