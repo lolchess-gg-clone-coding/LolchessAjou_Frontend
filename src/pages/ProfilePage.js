@@ -26,8 +26,8 @@ function ProfilePage() {
   const [UserInfo] = useState(state[0]);
   const [RankInfo] = useState(state[1]);
   const [SFInfo] = useState(state[2]);
-  const [Synergy] = useState(state[3]);
-  console.log(Synergy[0]);
+  const [Synergy] = useState(state[3][0]);
+  console.log(Synergy);
 
   return (
     <div style={{ padding: "20px 200px" }}>
@@ -41,8 +41,13 @@ function ProfilePage() {
             sf_tier: {SFInfo.sf_tier} {SFInfo.sf_league_point}점
           </div>
         </div>
+        <div>
+          사용한 시너지:
+          {Synergy.map((data) => (
+            <div>{data.synergy_name}</div>
+          ))}
+        </div>
       </Container>
-      <div></div>
     </div>
   );
 }
