@@ -27,6 +27,7 @@ function ProfilePage() {
   const [RankInfo] = useState(state[1]);
   const [SFInfo] = useState(state[2]);
   const [Synergy] = useState(state[3]);
+  console.log(Synergy[0]);
 
   return (
     <div style={{ padding: "20px 200px" }}>
@@ -41,6 +42,7 @@ function ProfilePage() {
           </div>
         </div>
       </Container>
+      <div></div>
     </div>
   );
 }
