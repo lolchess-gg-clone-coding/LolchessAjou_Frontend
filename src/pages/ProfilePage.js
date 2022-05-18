@@ -3,8 +3,9 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 import summonerImg from "../images/bg-summoner.jpeg";
+import UserInfoBox from "../components/User/UserInfoBox";
 
-const UserInfoBox = styled.div`
+const UserInfoContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 9fr;
   padding: 20px;
@@ -46,6 +47,7 @@ function ProfilePage() {
   const [UserInfo] = useState(state[0]);
   const [RankInfo] = useState(state[1]);
   const [SFInfo] = useState(state[2]);
+  const [Synergy] = useState(state[3]);
 
   function Sumgame(win, defeat) {
     let allGame = win + defeat;
@@ -61,30 +63,7 @@ function ProfilePage() {
 
   return (
     <div style={{ padding: "20px 200px" }}>
-      <UserInfoBox>
-        <IconBox>
-          <div>icon_id: {UserInfo.icon_id}</div>
-          <div
-            style={{
-              bottom: "0",
-              right: "0",
-              position: "absolute",
-              padding: "4px 6px",
-              backgroundColor: "#fff",
-              color: "black",
-              fontWeight: "700",
-              fontSize: "12px",
-            }}
-          >
-            levels: {UserInfo.levels}
-          </div>
-        </IconBox>
-        <div>
-          <span style={{ fontSize: "24px", color: "white" }}>
-            nickname: {UserInfo.nickname}
-          </span>
-        </div>
-      </UserInfoBox>
+      <UserInfoBox data={UserInfo} />
       <hr />
       <Container>
         <RankBox>

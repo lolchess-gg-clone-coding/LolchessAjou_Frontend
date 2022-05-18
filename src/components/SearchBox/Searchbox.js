@@ -22,15 +22,9 @@ function Searchbox() {
     e.preventDefault();
     console.log(Summoner);
 
-    // axios
-    //   .get(`http://localhost:3000/summoners/by-name/${Summoner}`)
-    //   .then(function (res) {
-    //     console.log(`in search box: ${res.data}`);
-    //     navigate(`/profile/${Summoner}`, { state: res.data });
-    //   });
-
     axios.get(`http://localhost:3000/search/${Summoner}`).then(function (res) {
       navigate(`/profile/${Summoner}`, { state: res.data });
+      window.location.reload();
     });
   };
 
