@@ -29,8 +29,8 @@ function Searchbox() {
   };
 
   return (
-    <Container>
-      <div onSubmit={onSubmitHandler}>
+    <Container onSubmit={onSubmitHandler}>
+      <div>
         <input
           placeholder="소환사 검색"
           onChange={(e) => {
@@ -40,6 +40,7 @@ function Searchbox() {
         />
       </div>
       <FiSearch
+        type="submit"
         cursor="pointer"
         size="20px"
         onClick={onSubmitHandler}
