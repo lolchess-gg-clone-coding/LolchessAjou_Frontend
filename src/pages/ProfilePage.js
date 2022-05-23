@@ -5,6 +5,7 @@ import styled from "styled-components";
 import UserInfoBox from "../components/User/UserInfoBox";
 import RankBox from "../components/Rank/RankBox";
 import SFBox from "../components/Rank/SFBox";
+import MatchBox from "../components/Match/MatchBox";
 
 const Container = styled.div`
   display: grid;
@@ -18,7 +19,7 @@ function ProfilePage() {
   const [RankInfo] = useState(state[1]);
   const [SFInfo] = useState(state[2]);
   const [Synergy] = useState(state[3]);
-  console.log(Synergy);
+  const [MatchInfo] = useState(state[4]);
 
   return (
     <div style={{ padding: "20px 200px" }}>
@@ -30,13 +31,15 @@ function ProfilePage() {
         <div>
           <SFBox data={SFInfo} />
         </div>
-        <div className="Box">
-          사용한 시너지:
-          {Synergy.map((data) => (
-            <div key={data.synergy_name}>{data.synergy_name}</div>
-          ))}
-        </div>
+        <></>
       </Container>
+      <MatchBox data={MatchInfo} />
+      <div className="Box">
+        사용한 시너지:
+        {Synergy.map((data) => (
+          <div key={data.synergy_name}>{data.synergy_name}</div>
+        ))}
+      </div>
     </div>
   );
 }
