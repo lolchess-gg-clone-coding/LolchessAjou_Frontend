@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import RankDetailBox from "./RankDetailBox";
 
+import { rankImage } from "../../type/rank_image_types.js";
+
 const RankDetail = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -32,12 +34,29 @@ function RankBox(props) {
 
   return (
     <div className="Box">
-      <div style={{ padding: "5px 40px" }}>
-        <div>티어</div>
-        <span>
-          {RankInfo.tier} {RankInfo.sub_tier}
-        </span>
-        <RightSpan>{RankInfo.league_point} LP</RightSpan>
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
+        <div>
+          <img
+            alt="tier_image"
+            src={rankImage[RankInfo.tier][RankInfo.sub_tier]}
+            width="84px"
+            style={{ padding: "5px" }}
+          />
+        </div>
+        <div style={{ padding: "20px 15px" }}>
+          <div>티어</div>
+          <div>
+            <span>
+              {RankInfo.tier} {RankInfo.sub_tier}
+            </span>
+            <RightSpan>{RankInfo.league_point} LP</RightSpan>
+          </div>
+          <div style={{ width: "150px" }}></div>
+        </div>
       </div>
       <RankDetail>
         <RankDetailBox type="승리" data={RankInfo.win} />
