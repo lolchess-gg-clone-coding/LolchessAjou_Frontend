@@ -18,12 +18,16 @@ const RightSpan = styled.span`
 `;
 
 function Sumgame(win, defeat) {
+  if (win === 0 && defeat === 0) return 0;
+
   let allGame = win + defeat;
 
   return allGame;
 }
 
 function Rate(num, allGame) {
+  if (allGame === 0) return 0;
+
   let rate = (num / allGame) * 100;
 
   return `${rate.toFixed(1)}%`;
@@ -49,12 +53,18 @@ function RankBox(props) {
         </div>
         <div style={{ padding: "20px 15px" }}>
           <div>티어</div>
-          <div>
-            <span>
-              {RankInfo.tier} {RankInfo.sub_tier}
-            </span>
-            <RightSpan>{RankInfo.league_point} LP</RightSpan>
-          </div>
+          {!(RankInfo.tier === "Unranked") ? (
+            <div>
+              <span>
+                {RankInfo.tier} {RankInfo.sub_tier}
+              </span>
+              <RightSpan>{RankInfo.league_point} LP</RightSpan>
+            </div>
+          ) : (
+            <div>
+              <span>{RankInfo.tier}</span>
+            </div>
+          )}
           <div style={{ width: "150px" }}></div>
         </div>
       </div>

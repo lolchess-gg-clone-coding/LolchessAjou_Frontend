@@ -34,6 +34,8 @@ import iron_2 from "../images/tier/iron/iron_2.png";
 import iron_3 from "../images/tier/iron/iron_3.png";
 import iron_4 from "../images/tier/iron/iron_4.png";
 
+import unrank from "../images/tier/unrank/provisional.png";
+
 export const rankImage = {
   CHALLENGER: { I: challenger_1 },
 
@@ -82,4 +84,6 @@ export const rankImage = {
     III: iron_3,
     IV: iron_4,
   },
+
+  Unranked: { N: unrank },
 };

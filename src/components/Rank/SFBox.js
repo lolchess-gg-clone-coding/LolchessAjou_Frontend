@@ -17,11 +17,17 @@ function SFBox(props) {
       </div>
       <div style={{ padding: "15x 15px" }}>
         <div>초고속 모드</div>
-        <div>
-          <span>
-            {SFInfo.sf_tier} {SFInfo.sf_league_point}점
-          </span>
-        </div>
+        {!(SFInfo.sf_tier === "Unranked") ? (
+          <div>
+            <span>
+              {SFInfo.sf_tier} {SFInfo.sf_league_point}점
+            </span>
+          </div>
+        ) : (
+          <div>
+            <span>Unrated</span>
+          </div>
+        )}
       </div>
     </div>
   );

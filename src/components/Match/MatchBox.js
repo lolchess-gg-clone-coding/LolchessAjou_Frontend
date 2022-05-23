@@ -6,7 +6,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
 
   padding: 5px;
@@ -60,11 +60,16 @@ function MatchBox(props) {
 
   console.log(MatchInfo);
   return (
-    <Container className="Box">
+    <Container>
       {MatchInfo.map((data) => (
         <div
           key={data.match_id}
-          style={{ display: "flex", flexDirection: "row" }}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+          className="Box"
         >
           <MatchList>
             <span style={{ fontSize: "16px", fontWeight: "700" }}>
@@ -88,16 +93,16 @@ function MatchBox(props) {
             </div>
           </MatchList>
           <div style={{ paddingLeft: "10px" }}>{data.match_id}</div>
+          <button
+            onClick={() => {
+              onMatchInfoHandler();
+            }}
+            style={{ border: "none", background: "none" }}
+          >
+            세부정보보기
+          </button>
         </div>
       ))}
-      <button
-        onClick={() => {
-          onMatchInfoHandler();
-        }}
-        style={{ border: "none", background: "none" }}
-      >
-        세부정보보기
-      </button>
     </Container>
   );
 }
