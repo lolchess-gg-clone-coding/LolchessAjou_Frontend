@@ -18,6 +18,7 @@ const GNB = styled.div`
   background-image: url(${bg_gnb_tft});
   color: white;
   font-size: 22px;
+  font-weight: 700;
   width: 100%;
   height: 170px;
 `;
@@ -35,7 +36,9 @@ function Header() {
       >
         <Logo />
       </div>
-      <Searchbox />
+      <div style={{ fontSize: "12px" }}>
+        <Searchbox />
+      </div>
     </GNB>
   );
 }
