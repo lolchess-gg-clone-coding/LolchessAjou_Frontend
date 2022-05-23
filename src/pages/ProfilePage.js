@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import UserInfoBox from "../components/User/UserInfoBox";
 import RankBox from "../components/Rank/RankBox";
+import SFBox from "../components/Rank/SFBox";
 
 const Container = styled.div`
   display: grid;
@@ -26,16 +27,8 @@ function ProfilePage() {
       <Container>
         <RankBox data={RankInfo} />
         <div className="lpChart Box"></div>
-        <div className="sfBox">
-          <div style={{ textAlign: "center" }} className="Box">
-            초고속 모드
-            <br />
-            <div>
-              <span>
-                {SFInfo.sf_tier} {SFInfo.sf_league_point}점
-              </span>
-            </div>
-          </div>
+        <div>
+          <SFBox data={SFInfo} />
         </div>
         <div className="Box">
           사용한 시너지:
