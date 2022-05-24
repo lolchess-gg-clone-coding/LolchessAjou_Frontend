@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.css";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import axios from "axios";
+
+import { matchType } from "../../type/match_type";
 
 const Container = styled.div`
   display: flex;
@@ -18,10 +21,6 @@ const MatchList = styled.div`
   padding-top: 18px;
   padding-left: 18px;
 `;
-
-const onMatchInfoHandler = () => {
-  console.log("matchinfohandler");
-};
 
 const Unix_timestamp = (t) => {
   var date = new Date(t * 1000);
@@ -48,17 +47,52 @@ const getPlaydate = (date) => {
 };
 
 function MatchBox(props) {
-  const MatchInfo = props.data;
-
-  const MatchType = {
-    turbo: "초고속 모드",
-    standard: "일반",
-    rank: "랭크",
-  };
-
   const today = new Date();
 
-  console.log(MatchInfo);
+  const MatchInfo = props.data;
+
+  // const [AugmentData, setAugmentData] = useState({});
+
+  // const onMatchInfoHandler = (account_id, match_id) => {
+  //   axios
+  //     .post("http://localhost:3000/match", {
+  //       account_id: account_id,
+  //       match_id: match_id,
+  //     })
+  //     .then(function (res) {
+  //       // const matchDetailData = res.data[0][0];
+  //       // console.log(matchDetailData);
+  //       setAugmentData(res.data[0][0]);
+  //       console.log(AugmentData);
+  //       const synergyData = res.data[1][0];
+  //       console.log(synergyData);
+  //       const unitData = res.data[2][0];
+  //       console.log(unitData);
+  //     });
+  // };
+  const matchDetailData = [];
+
+  useEffect(() => {
+    MatchInfo.map((data) =>
+      axios
+        .post("http://localhost:3000/match", {
+          account_id: data.account_id,
+          match_id: data.match_id,
+        })
+        .then(function (res) {
+          const match_id = data.match_id;
+
+          const detailtmp = {
+            match_id: match_id,
+            augments: res.data[0][0][0],
+            synergys: res.data[1][0],
+            units: res.data[2][0],
+          };
+          matchDetailData.push(detailtmp);
+        })
+    );
+  }, []);
+
   return (
     <Container>
       {MatchInfo.map((data) => (
@@ -81,7 +115,7 @@ function MatchBox(props) {
                 fontSize: "12px",
               }}
             >
-              <div>{MatchType[data.game_type]}</div>
+              <div>{matchType[data.game_type]}</div>
               <div>{Unix_timestamp(data.playtime)}</div>
               <OverlayTrigger
                 overlay={(props) => (
@@ -95,7 +129,9 @@ function MatchBox(props) {
           <div style={{ paddingLeft: "10px" }}>{data.match_id}</div>
           <button
             onClick={() => {
-              onMatchInfoHandler();
+              console.log(
+                matchDetailData.find((x) => x.match_id === data.match_id)
+              );
             }}
             style={{ border: "none", background: "none" }}
           >
