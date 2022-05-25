@@ -74,6 +74,7 @@ function MatchBox(props) {
           augments: res.data[0][0][0],
           synergys: res.data[1][0],
           units: res.data[2][0],
+          users: res.data[3][0],
         });
       }
       setMatchDetailData(matchDetailtmp);
@@ -87,10 +88,14 @@ function MatchBox(props) {
         return (
           <div key={data.match_id}>
             <div
+              // style={{
+              //   display: "flex",
+              //   flexDirection: "row",
+              //   justifyContent: "space-around",
+              // }}
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
+                display: "grid",
+                gridTemplateColumns: "1fr 3fr 2fr 1fr",
               }}
               className="Box"
             >
@@ -115,7 +120,24 @@ function MatchBox(props) {
                   </OverlayTrigger>
                 </div>
               </MatchList>
-              <div style={{ paddingLeft: "10px" }}>{data.match_id}</div>
+              <div></div>
+              {/* <div style={{ paddingLeft: "10px" }}>{data.match_id}</div> */}
+              {matchDetailData[i] && (
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                  }}
+                >
+                  {matchDetailData[i].users.map((data, i) => {
+                    return (
+                      <div key={i} style={{ fontSize: "8px", padding: "5px" }}>
+                        {data.nickname}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
               <button
                 onClick={() => {
                   console.log(matchDetailData[i]);

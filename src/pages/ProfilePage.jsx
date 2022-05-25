@@ -18,7 +18,7 @@ function ProfilePage() {
   const [UserInfo] = useState(state[0]);
   const [RankInfo] = useState(state[1]);
   const [SFInfo] = useState(state[2]);
-  const [MatchInfo] = useState(state[4]);
+  const [MatchInfo] = useState(state[3]);
 
   return (
     <div style={{ padding: "20px 200px" }}>
@@ -32,6 +32,7 @@ function ProfilePage() {
         </div>
         <></>
       </Container>
+      <hr />
       <MatchBox data={MatchInfo} />
     </div>
   );
