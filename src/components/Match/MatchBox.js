@@ -6,7 +6,6 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import axios from "axios";
 
 import { matchType } from "../../type/match_type";
-import { augmentType } from "../../type/augments_type";
 
 const Container = styled.div`
   display: flex;
@@ -131,7 +130,11 @@ function MatchBox(props) {
             </div>
             <div
               className="Box"
-              style={{ display: "none" }}
+              style={{
+                display: "none",
+                padding: "5px 5px 15px 5px",
+                marginBottom: "20px",
+              }}
               ref={detailRef.current[i]}
             >
               {matchDetailData[i] && (
@@ -139,23 +142,26 @@ function MatchBox(props) {
                   <div>{matchDetailData[i].match_id}</div>
                   <hr />
                   <div>
-                    <div>사용한 증강체</div>
-                    <div>
-                      {augmentType[matchDetailData[i].augments.augments_name1]}
-                    </div>
-                    <div>
-                      {augmentType[matchDetailData[i].augments.augments_name2]}
-                    </div>
-                    <div>
-                      {augmentType[matchDetailData[i].augments.augments_name3]}
-                    </div>
-                    {/* <div>{matchDetailData[i].augments.augments_name1}</div>
+                    <h4>사용한 증강체</h4>
+                    <div>{matchDetailData[i].augments.augments_name1}</div>
                     <div>{matchDetailData[i].augments.augments_name2}</div>
-                    <div>{matchDetailData[i].augments.augments_name3}</div> */}
+                    <div>{matchDetailData[i].augments.augments_name3}</div>
                   </div>
                   <hr />
                   <div>
-                    <div>사용한 시너지</div>
+                    <h4>사용한 시너지</h4>
+                    {matchDetailData[i].synergys.map((data) => {
+                      return (
+                        <div key={data.synergy_name}>{data.synergy_name}</div>
+                      );
+                    })}
+                  </div>
+                  <hr />
+                  <div>
+                    <h4>사용한 유닛</h4>
+                    {matchDetailData[i].units.map((data, i) => {
+                      return <div key={i}>{data.units_name}</div>;
+                    })}
                   </div>
                 </div>
               )}
