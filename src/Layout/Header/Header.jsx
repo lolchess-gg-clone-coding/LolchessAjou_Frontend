@@ -2,8 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import Logo from "../../components/Logo/Logo.js";
-import Searchbox from "../../components/SearchBox/Searchbox.js";
+import Logo from "../../components/Logo/Logo";
+import Searchbox from "../../components/SearchBox/Searchbox";
 
 import bg_gnb_tft from "../../images/bg_gnb_tft.png";
 

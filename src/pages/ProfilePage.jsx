@@ -18,7 +18,6 @@ function ProfilePage() {
   const [UserInfo] = useState(state[0]);
   const [RankInfo] = useState(state[1]);
   const [SFInfo] = useState(state[2]);
-  const [Synergy] = useState(state[3]);
   const [MatchInfo] = useState(state[4]);
 
   return (
