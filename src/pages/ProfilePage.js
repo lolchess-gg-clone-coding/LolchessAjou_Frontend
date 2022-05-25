@@ -34,12 +34,6 @@ function ProfilePage() {
         <></>
       </Container>
       <MatchBox data={MatchInfo} />
-      <div className="Box">
-        사용한 시너지:
-        {Synergy.map((data) => (
-          <div key={data.synergy_name}>{data.synergy_name}</div>
-        ))}
-      </div>
     </div>
   );
 }

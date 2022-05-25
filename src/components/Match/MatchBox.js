@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.css";
 import Tooltip from "react-bootstrap/Tooltip";
@@ -6,6 +6,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import axios from "axios";
 
 import { matchType } from "../../type/match_type";
+import { augmentType } from "../../type/augments_type";
 
 const Container = styled.div`
   display: flex;
@@ -51,94 +52,117 @@ function MatchBox(props) {
 
   const MatchInfo = props.data;
 
-  // const [AugmentData, setAugmentData] = useState({});
+  const [matchDetailData, setMatchDetailData] = useState([]);
 
-  // const onMatchInfoHandler = (account_id, match_id) => {
-  //   axios
-  //     .post("http://localhost:3000/match", {
-  //       account_id: account_id,
-  //       match_id: match_id,
-  //     })
-  //     .then(function (res) {
-  //       // const matchDetailData = res.data[0][0];
-  //       // console.log(matchDetailData);
-  //       setAugmentData(res.data[0][0]);
-  //       console.log(AugmentData);
-  //       const synergyData = res.data[1][0];
-  //       console.log(synergyData);
-  //       const unitData = res.data[2][0];
-  //       console.log(unitData);
-  //     });
-  // };
-  const matchDetailData = [];
+  const detailRef = useRef(
+    MatchInfo.map(() => React.createRef()),
+    []
+  );
+
+  useEffect(() => {}, [matchDetailData]);
 
   useEffect(() => {
-    MatchInfo.map((data) =>
-      axios
-        .post("http://localhost:3000/match", {
+    const fetch = async () => {
+      let matchDetailtmp = [];
+      for (const data of MatchInfo) {
+        const res = await axios.post("http://localhost:3000/match", {
           account_id: data.account_id,
           match_id: data.match_id,
-        })
-        .then(function (res) {
-          const match_id = data.match_id;
-
-          const detailtmp = {
-            match_id: match_id,
-            augments: res.data[0][0][0],
-            synergys: res.data[1][0],
-            units: res.data[2][0],
-          };
-          matchDetailData.push(detailtmp);
-        })
-    );
-  }, []);
+        });
+        const match_id = data.match_id;
+        matchDetailtmp.push({
+          match_id: match_id,
+          augments: res.data[0][0][0],
+          synergys: res.data[1][0],
+          units: res.data[2][0],
+        });
+      }
+      setMatchDetailData(matchDetailtmp);
+    };
+    fetch();
+  }, [MatchInfo]);
 
   return (
     <Container>
-      {MatchInfo.map((data) => (
-        <div
-          key={data.match_id}
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-          className="Box"
-        >
-          <MatchList>
-            <span style={{ fontSize: "16px", fontWeight: "700" }}>
-              #{data.placement}
-            </span>
+      {MatchInfo.map((data, i) => {
+        return (
+          <div key={data.match_id}>
             <div
               style={{
-                color: "grey",
-                fontSize: "12px",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
               }}
+              className="Box"
             >
-              <div>{matchType[data.game_type]}</div>
-              <div>{Unix_timestamp(data.playtime)}</div>
-              <OverlayTrigger
-                overlay={(props) => (
-                  <Tooltip {...props}>{getPlaydate(data.playdate)}</Tooltip>
-                )}
+              <MatchList>
+                <span style={{ fontSize: "16px", fontWeight: "700" }}>
+                  #{data.placement}
+                </span>
+                <div
+                  style={{
+                    color: "grey",
+                    fontSize: "12px",
+                  }}
+                >
+                  <div>{matchType[data.game_type]}</div>
+                  <div>{Unix_timestamp(data.playtime)}</div>
+                  <OverlayTrigger
+                    overlay={(props) => (
+                      <Tooltip {...props}>{getPlaydate(data.playdate)}</Tooltip>
+                    )}
+                  >
+                    <span>{getDateDiff(today, data.playdate)}</span>
+                  </OverlayTrigger>
+                </div>
+              </MatchList>
+              <div style={{ paddingLeft: "10px" }}>{data.match_id}</div>
+              <button
+                onClick={() => {
+                  console.log(matchDetailData[i]);
+                  detailRef.current[i].current.style.display === "none"
+                    ? (detailRef.current[i].current.style.display = "block")
+                    : (detailRef.current[i].current.style.display = "none");
+                }}
+                style={{ border: "none", background: "none" }}
               >
-                <span>{getDateDiff(today, data.playdate)}</span>
-              </OverlayTrigger>
+                세부정보보기
+              </button>
             </div>
-          </MatchList>
-          <div style={{ paddingLeft: "10px" }}>{data.match_id}</div>
-          <button
-            onClick={() => {
-              console.log(
-                matchDetailData.find((x) => x.match_id === data.match_id)
-              );
-            }}
-            style={{ border: "none", background: "none" }}
-          >
-            세부정보보기
-          </button>
-        </div>
-      ))}
+            <div
+              className="Box"
+              style={{ display: "none" }}
+              ref={detailRef.current[i]}
+            >
+              {matchDetailData[i] && (
+                <div>
+                  <div>{matchDetailData[i].match_id}</div>
+                  <hr />
+                  <div>
+                    <div>사용한 증강체</div>
+                    <div>
+                      {augmentType[matchDetailData[i].augments.augments_name1]}
+                    </div>
+                    <div>
+                      {augmentType[matchDetailData[i].augments.augments_name2]}
+                    </div>
+                    <div>
+                      {augmentType[matchDetailData[i].augments.augments_name3]}
+                    </div>
+                    {/* <div>{matchDetailData[i].augments.augments_name1}</div>
+                    <div>{matchDetailData[i].augments.augments_name2}</div>
+                    <div>{matchDetailData[i].augments.augments_name3}</div> */}
+                  </div>
+                  <hr />
+                  <div>
+                    <div>사용한 시너지</div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      })}
     </Container>
   );
 }
