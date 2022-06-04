@@ -131,7 +131,7 @@ function MatchBox(props) {
                 >
                   {matchDetailData[i].users.map((data, i) => {
                     return (
-                      <div key={i} style={{ fontSize: "8px", padding: "5px" }}>
+                      <div key={i} style={{ fontSize: "12px", padding: "5px" }}>
                         {data.nickname}
                       </div>
                     );
